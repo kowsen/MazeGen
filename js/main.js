@@ -30,38 +30,47 @@ document.getElementById('maze').style.whiteSpace = 'pre';
 document.getElementById('maze').style.fontFamily = 'Courier New'
 
 document.getElementById('left').onclick = function() {
-	r.move(d.LEFT);
+	moveAndCheck(d.LEFT);
 	updateMaze();
 };
 
 document.getElementById('up').onclick = function() {
-	r.move(d.UP);
+	moveAndCheck(d.UP);
 	updateMaze()
 };
 
 document.getElementById('right').onclick = function() {
-	r.move(d.RIGHT);
+	moveAndCheck(d.RIGHT);
 	updateMaze();
 };
 
 document.getElementById('down').onclick = function() {
-	r.move(d.DOWN);
+	moveAndCheck(d.DOWN);
 	updateMaze();
 };
 
 document.onkeydown = function() {
 	if(event.keyCode === 37) {
-		r.move(d.LEFT);
+		moveAndCheck(d.LEFT);
 	} else if(event.keyCode === 38) {
-		r.move(d.UP);
+		moveAndCheck(d.UP);
 	} else if(event.keyCode === 39) {
-		r.move(d.RIGHT);
+		moveAndCheck(d.RIGHT);
 	} else if(event.keyCode === 40) {
-		r.move(d.DOWN);
+		moveAndCheck(d.DOWN);
 	} else {
 		return;
 	}
 	updateMaze();
+}
+
+function moveAndCheck(dir) {
+	r.move(dir);
+	if(r.x === STARTX && r.y === STARTY) {
+		updateMaze();
+		alert("FINISHED!");
+		init();
+	}
 }
 
 document.getElementById('width').value = WIDTH;
