@@ -15,7 +15,8 @@ var maze;
 	}
 
 	// Placed into helper so we don't add onto the call stack every time we
-	// fail due to difficulty and rebuild the maze
+	// fail due to difficulty and rebuild the maze. This way we can return
+	// a failure and make a fresh call.
 	function carveHelper(grid, startX, startY, endX, endY, minDiff, maxDiff) {
 
 		// Resets the grid
@@ -38,6 +39,7 @@ var maze;
 		// Mark the starting point as visited
 		available[startX][startY] = false;
 
+		// Tracks how many steps away from startX, startY we are
 		var counter = 0;
 
 		// Until we've checked all points
@@ -67,16 +69,11 @@ var maze;
 				yStack.push(newY);
 
 				counter++;
-				if(newX === endX && newY === endY) {
-					if(counter > maxDiff) {
-						console.log("MAZE TOO HARD");
-						return false;
-					} else if(counter < minDiff) {
-						console.log("MAZE TOO EASY");
-						return false;
-					} else {
-						console.log("DIFFICULTY: " + counter);
-					}
+
+				// If we've finished the usable part of the maze and are not in the
+				// difficulty window, return false - maze creation failed.
+				if(newX === endX && newY === endY && (counter < minDiff || counter > maxDiff)) {
+					return false;
 				}
 			}
 		}

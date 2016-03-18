@@ -3,13 +3,16 @@
 function draw(grid, runner) {
 	var width = grid.getWidth();
 	var height = grid.getHeight();
+
+	var mazeString = "";
 	
 	for(var i = 0; i < height + 1; i++) {
 		var rowString = "";
 		for(var j = 0; j < width; j++) {
 			rowString += (grid.get(j, i, d.UP)) ? "+---" : "+   ";
 		}
-		console.log(rowString + "+");
+		//console.log(rowString + "+");
+		mazeString += (rowString + "+<br>");
 
 		if(i !== height) {
 			var colString = "";
@@ -21,7 +24,10 @@ function draw(grid, runner) {
 				}
 			}
 			colString += "|";
-			console.log(colString);
+			//console.log(colString);
+			mazeString += (colString + "<br>");
 		}
 	}
+
+	return mazeString
 }

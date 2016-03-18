@@ -19,9 +19,6 @@ function Runner(startX, startY, grid) {
 			}
 			
 		}
-
-		// print after moving (for debugging)
-		draw(grid, this);
 	}.bind(this);
 
 	// Make a single step in the direction. Returns false if
