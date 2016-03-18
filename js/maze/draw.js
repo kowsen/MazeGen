@@ -1,5 +1,5 @@
-// A function to draw a simple ASCII representation of the maze
-// to the console for testing and debugging
+// A function to return a string containing a simple ASCII representation
+// of the maze for testing and debugging
 function draw(grid, runner) {
 	var width = grid.getWidth();
 	var height = grid.getHeight();
