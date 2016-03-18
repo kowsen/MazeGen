@@ -49,6 +49,21 @@ document.getElementById('down').onclick = function() {
 	updateMaze();
 };
 
+document.onkeydown = function() {
+	if(event.keyCode === 37) {
+		r.move(d.LEFT);
+	} else if(event.keyCode === 38) {
+		r.move(d.UP);
+	} else if(event.keyCode === 39) {
+		r.move(d.RIGHT);
+	} else if(event.keyCode === 40) {
+		r.move(d.DOWN);
+	} else {
+		return;
+	}
+	updateMaze();
+}
+
 document.getElementById('width').value = WIDTH;
 document.getElementById('height').value = HEIGHT;
 document.getElementById('minDiff').value = MINDIFF;
