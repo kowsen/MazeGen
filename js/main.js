@@ -7,8 +7,8 @@ var STARTY = HEIGHT - 1;
 var ENDX = 0;
 var ENDY = 0;
 
-var MINDIFF = 9;
-var MAXDIFF = 15;
+var MINDIFF = 15;
+var MAXDIFF = 20;
 
 var g;
 var r;
