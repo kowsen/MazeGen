@@ -8,7 +8,7 @@ var ENDX = 0;
 var ENDY = 0;
 
 var MINDIFF = 9;
-var MAXDIFF = 12;
+var MAXDIFF = 15;
 
 var g;
 var r;
@@ -62,7 +62,7 @@ document.getElementById('generate').onclick = function() {
 	STARTX = WIDTH - 1;
 	STARTY = HEIGHT - 1;
 
-	if(MAXDIFF < WIDTH + HEIGHT - 1) {
+	if(MAXDIFF < (WIDTH + HEIGHT - 1)) {
 		alert("MAXDIFF needs to be at least WIDTH + HEIGHT - 1");
 	} else if(MINDIFF >= MAXDIFF) {
 		alert("MAXDIFF needs to be higher than MINDIFF");
