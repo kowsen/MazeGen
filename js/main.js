@@ -21,7 +21,12 @@ function init() {
 	maze.carveMaze(g, STARTX, STARTY, ENDX, ENDY, MINDIFF, MAXDIFF);
 
 	// Make a new runner and attach it to the grid
-	r = new Runner(0, 0, g);
+	r = new Runner(g, ENDX, ENDY);
+	r.setEndCallback(STARTX, STARTY, function() {
+		updateMaze();
+		alert("FINISHED");
+		init();
+	});
 
 	updateMaze();
 }
@@ -30,47 +35,38 @@ document.getElementById('maze').style.whiteSpace = 'pre';
 document.getElementById('maze').style.fontFamily = 'Courier New'
 
 document.getElementById('left').onclick = function() {
-	moveAndCheck(d.LEFT);
+	r.move(d.LEFT);
 	updateMaze();
 };
 
 document.getElementById('up').onclick = function() {
-	moveAndCheck(d.UP);
+	r.move(d.UP);
 	updateMaze()
 };
 
 document.getElementById('right').onclick = function() {
-	moveAndCheck(d.RIGHT);
+	r.move(d.RIGHT);
 	updateMaze();
 };
 
 document.getElementById('down').onclick = function() {
-	moveAndCheck(d.DOWN);
+	r.move(d.DOWN);
 	updateMaze();
 };
 
 document.onkeydown = function() {
 	if(event.keyCode === 37) {
-		moveAndCheck(d.LEFT);
+		r.move(d.LEFT);
 	} else if(event.keyCode === 38) {
-		moveAndCheck(d.UP);
+		r.move(d.UP);
 	} else if(event.keyCode === 39) {
-		moveAndCheck(d.RIGHT);
+		r.move(d.RIGHT);
 	} else if(event.keyCode === 40) {
-		moveAndCheck(d.DOWN);
+		r.move(d.DOWN);
 	} else {
 		return;
 	}
 	updateMaze();
-}
-
-function moveAndCheck(dir) {
-	r.move(dir);
-	if(r.x === STARTX && r.y === STARTY) {
-		updateMaze();
-		alert("FINISHED!");
-		init();
-	}
 }
 
 document.getElementById('width').value = WIDTH;
