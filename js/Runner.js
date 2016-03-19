@@ -15,13 +15,11 @@ function Runner(grid, startX, startY) {
 	// Move in direction dir from our current space in grid until we
 	// hit a non-hallway space or a wall.
 	this.move = function(dir) {
-		step(dir);
-
-		while(maze.isHallway(grid, this.x, this.y)) {
+		do {
 			if(step(dir) === false) {
 				break;
 			}
-		}
+		} while(maze.isHallway(grid, this.x, this.y));
 	}.bind(this);
 
 	this.setEndCallback = function(x, y, cb) {

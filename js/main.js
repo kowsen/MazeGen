@@ -13,6 +13,8 @@ var MAXDIFF = 20;
 var g;
 var r;
 
+var isLeft = false;
+
 function init() {
 	// Initialize a new grid
 	g = new Grid(WIDTH, HEIGHT);
@@ -24,8 +26,7 @@ function init() {
 	r = new Runner(g, ENDX, ENDY);
 	r.setEndCallback(STARTX, STARTY, function() {
 		updateMaze();
-		alert("FINISHED");
-		init();
+		reGenerate();
 	});
 
 	updateMaze();
@@ -74,13 +75,24 @@ document.getElementById('height').value = HEIGHT;
 document.getElementById('minDiff').value = MINDIFF;
 document.getElementById('maxDiff').value = MAXDIFF;
 
-document.getElementById('generate').onclick = function() {
+document.getElementById('generate').onclick = reGenerate;
+
+function reGenerate() {
+	if(isLeft) {
+		STARTX = WIDTH - 1;
+		STARTY = HEIGHT - 1;
+		ENDX = 0;
+		ENDY = 0;
+	} else {
+		STARTX = 0;
+		STARTY = HEIGHT - 1;
+		ENDX = WIDTH - 1;
+		ENDY = 0;
+	}
 	WIDTH = parseInt(document.getElementById('width').value);
 	HEIGHT = parseInt(document.getElementById('height').value);
 	MINDIFF = parseInt(document.getElementById('minDiff').value);
 	MAXDIFF = parseInt(document.getElementById('maxDiff').value);
-	STARTX = WIDTH - 1;
-	STARTY = HEIGHT - 1;
 
 	if(MAXDIFF < (WIDTH + HEIGHT - 1)) {
 		alert("MAXDIFF needs to be at least WIDTH + HEIGHT - 1");
@@ -89,7 +101,9 @@ document.getElementById('generate').onclick = function() {
 	} else {
 		init();
 	}
-};
+
+	isLeft = !isLeft;
+}
 
 // Draw the grid and runner
 function updateMaze() {
