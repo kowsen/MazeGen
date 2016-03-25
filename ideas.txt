@@ -1,0 +1,13 @@
+Don't control with swipes, have markers at decision points and control like you're unlocking an android phone
+
+Find all nodes one hop away, and all nodes one or two spaces away from those one hop nodes. Note that one hop nodes can only be on the same x or y as the start node. Maybe bias towards correct if we're close?
+
+If we cross a line, find the closest node on the pre-cross side of the line
+
+OR
+
+Control like PacMan on Android
+
+Runner has a field controlling what direction the controller is pointing
+It automatically controls what x and y we're at, takes in a stepTime argument on creation
+Has a function to give the percentage between spaces (how far through a step we're at)

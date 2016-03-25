@@ -108,7 +108,8 @@ function reGenerate() {
 
 // Draw the grid and runner
 function updateMaze() {
-	document.getElementById('maze').innerHTML = draw(g, r);
+	//document.getElementById('maze').innerHTML = draw(g, r);
+	drawToCanvas(g, r, document.getElementById('maze'));
 }
 
 init();
