@@ -13,7 +13,10 @@ function SlowRunner(grid, startX, startY, stepLength) {
 
 	this.move = function(dir) {
 		nextDir = dir;
-		if(!direction && !grid.get(this.x, this.y, nextDir)) {
+		if(direction && dir % 2 === direction % 2 && dir !== direction) {
+			nextDir = dir;
+			reverse();
+		} else if(!direction && !grid.get(this.x, this.y, nextDir)) {
 			direction = nextDir;
 			start();
 		}
@@ -49,10 +52,11 @@ function SlowRunner(grid, startX, startY, stepLength) {
 
 	var start;
 	var getPercent;
+	var reverse;
 
 	(function() {
 
-		var interval;
+		var timeout;
 		var lastStep;
 
 		// Change to a series of timeouts so we can more easily
@@ -63,18 +67,16 @@ function SlowRunner(grid, startX, startY, stepLength) {
 				step(direction);
 				if(nextDir && !grid.get(this.x, this.y, nextDir)) {
 					direction = nextDir;
-					start();
 				}
 			}
+			timeout = setTimeout(intFunc, stepLength);
 		}.bind(this);
 
 		start = function() {
 			lastStep = Date.now();
-			clearInterval(interval);
-			interval = false;
-			if(!interval) {
-				interval = setInterval(intFunc, stepLength);
-			}
+			clearTimeout(timeout);
+			timeout = false;
+			timeout = setTimeout(intFunc, stepLength);
 		};
 
 		getPercent = function() {
@@ -82,6 +84,16 @@ function SlowRunner(grid, startX, startY, stepLength) {
 				return ((Date.now() - lastStep) / stepLength);
 			}
 			return 0;
+		};
+
+		reverse = function() {
+			var now = Date.now();
+			var interval = now - lastStep;
+			lastStep = now - (stepLength - (now - lastStep));
+			step(direction);
+			direction = nextDir;
+			clearTimeout(timeout);
+			timeout = setTimeout(intFunc, interval);
 		};
 
 	}).bind(this)();
