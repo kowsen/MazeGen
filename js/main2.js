@@ -24,10 +24,14 @@ function init() {
 	//maze.carveMaze(g, STARTX, STARTY, ENDX, ENDY, MINDIFF, MAXDIFF);
 
 	// Make a new runner and attach it to the grid
-	r = new Runner(g, ENDX, ENDY);
+	r = new SlowRunner(g, ENDX, ENDY, 300);
 	// r.setEndCallback(STARTX, STARTY, function() {
 	// 	updateMaze();
 	// 	reGenerate();
+	// });
+
+	// r.setStepCallback(function() {
+	// 	updateMaze();
 	// });
 
 	updateMaze();
@@ -109,7 +113,11 @@ function reGenerate() {
 // Draw the grid and runner
 function updateMaze() {
 	//document.getElementById('maze').innerHTML = draw(g, r);
-	drawToCanvas(g, r, document.getElementById('maze'));
+	//drawToCanvas(g, r, document.getElementById('maze'));
 }
+
+setInterval(function() {
+	drawToCanvas(g, r, document.getElementById('maze'));
+}, 1000 / 60);
 
 init();

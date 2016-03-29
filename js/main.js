@@ -24,36 +24,45 @@ function init() {
 	//maze.carveMaze(g, STARTX, STARTY, ENDX, ENDY, MINDIFF, MAXDIFF);
 
 	// Make a new runner and attach it to the grid
-	r = new Runner(g, ENDX, ENDY);
+	r = new SlowRunner(g, ENDX, ENDY, 1000);
 	// r.setEndCallback(STARTX, STARTY, function() {
 	// 	updateMaze();
 	// 	reGenerate();
 	// });
 
+	r.setStepCallback(function() {
+		updateMaze();
+	});
+
 	updateMaze();
+
 }
+
+setInterval(function() {
+	console.log(r.getPercent());
+}, 150);
 
 document.getElementById('maze').style.whiteSpace = 'pre';
 document.getElementById('maze').style.fontFamily = 'Courier New'
 
 document.getElementById('left').onclick = function() {
 	r.move(d.LEFT);
-	updateMaze();
+	//updateMaze();
 };
 
 document.getElementById('up').onclick = function() {
 	r.move(d.UP);
-	updateMaze()
+	//updateMaze()
 };
 
 document.getElementById('right').onclick = function() {
 	r.move(d.RIGHT);
-	updateMaze();
+	//updateMaze();
 };
 
 document.getElementById('down').onclick = function() {
 	r.move(d.DOWN);
-	updateMaze();
+	//updateMaze();
 };
 
 document.onkeydown = function() {

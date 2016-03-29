@@ -29,13 +29,16 @@ function draw(grid, runner) {
 		}
 	}
 
-	return mazeString
+	return mazeString;
 }
 
 var step = 20;
 
 function drawToCanvas(grid, runner, canvas) {
     var context = canvas.getContext('2d');
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
 	var width = grid.getWidth();
 	var height = grid.getHeight();
 
@@ -57,5 +60,9 @@ function drawToCanvas(grid, runner, canvas) {
 				context.stroke();
 			}
 		}
+	}
+
+	if(runner) {
+		context.fillRect((1.25 + runner.getX()) * step, (1.25 + runner.getY()) * step, step / 2, step / 2);
 	}
 }
