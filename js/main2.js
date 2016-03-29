@@ -18,13 +18,13 @@ var isLeft = false;
 function init() {
 	// Initialize a new grid
 	//g = new Grid(WIDTH, HEIGHT);
-	g = new EndlessGrid(WIDTH, HEIGHT, 3);
+	g = new EndlessGrid(WIDTH, HEIGHT, 5);
 
 	// Carve a maze into the grid
 	//maze.carveMaze(g, STARTX, STARTY, ENDX, ENDY, MINDIFF, MAXDIFF);
 
 	// Make a new runner and attach it to the grid
-	r = new SlowRunner(g, ENDX, ENDY, 300);
+	r = new SlowRunner(g, ENDX, ENDY + HEIGHT, 300);
 	// r.setEndCallback(STARTX, STARTY, function() {
 	// 	updateMaze();
 	// 	reGenerate();
@@ -116,8 +116,59 @@ function updateMaze() {
 	//drawToCanvas(g, r, document.getElementById('maze'));
 }
 
-setInterval(function() {
-	drawToCanvas(g, r, document.getElementById('maze'));
+var lastScroll = 0;
+var speedFactor = 2.4 * 20 / step;
+
+var gameLoop = setInterval(function() {
+	off++;
+	if((off - lastScroll) > (step * HEIGHT * speedFactor)) {
+		lastScroll += (step * HEIGHT * speedFactor);
+		g.scrollDown();
+	}
+	drawToCanvas(g, r, document.getElementById('maze'), off / speedFactor + step * 7);
 }, 1000 / 60);
 
+var off = 0;
+
 init();
+
+
+document.addEventListener('touchstart', handleTouchStart, false);        
+document.addEventListener('touchmove', handleTouchMove, false);
+
+var xDown = null;                                                        
+var yDown = null;                                                        
+
+function handleTouchStart(evt) {                                         
+    xDown = evt.touches[0].clientX;                                      
+    yDown = evt.touches[0].clientY;                                      
+};                                                
+
+function handleTouchMove(evt) {
+    if ( ! xDown || ! yDown ) {
+        return;
+    }
+
+    var xUp = evt.touches[0].clientX;                                    
+    var yUp = evt.touches[0].clientY;
+
+    var xDiff = xDown - xUp;
+    var yDiff = yDown - yUp;
+
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) {/*most significant*/
+        if ( xDiff > 0 ) {
+            r.move(d.LEFT);
+        } else {
+            r.move(d.RIGHT);
+        }                       
+    } else {
+        if ( yDiff > 0 ) {
+            r.move(d.UP); 
+        } else { 
+            r.move(d.DOWN);
+        }                                                                 
+    }
+    /* reset values */
+    xDown = null;
+    yDown = null;                                             
+};

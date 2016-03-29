@@ -32,37 +32,50 @@ function draw(grid, runner) {
 	return mazeString;
 }
 
-var step = 20;
+var step = 60;
 
-function drawToCanvas(grid, runner, canvas) {
+function drawToCanvas(grid, runner, canvas, vertOffset) {
     var context = canvas.getContext('2d');
 
     context.clearRect(0, 0, canvas.width, canvas.height);
 
+    context.fillStyle="#FF0000";
+    context.fillRect(0, 0, canvas.width, step);
+    context.fillStyle="#000000";
+    context.fillRect(0, step * 20, canvas.width, canvas.height);
+
+    context.lineWidth = 3;
+
 	var width = grid.getWidth();
 	var height = grid.getHeight();
 
-	for(var i = 0; i < height * 3; i++) {
+	var minY = grid.getTop();
+
+	for(var i = 0; i < height * 5; i++) {
 		for(var j = 0; j < width; j++) {
-			if(grid.get(j, i, d.UP)) {
+			if(grid.get(j, minY + i, d.UP)) {
 				context.beginPath();
-				context.moveTo(step * (j + 1), step * (i + 1));
-				context.lineTo(step * (j + 2), step * (i + 1));
+				context.moveTo(step * (j + 1), step * (i + 5 + minY) - vertOffset);
+				context.lineTo(step * (j + 2), step * (i + 5 + minY) - vertOffset);
 				context.stroke();
 			}
 		}
 
 		for(var k = 0; k < width + 1; k++) {
-			if(grid.get(k, i, d.LEFT)) {
+			if(grid.get(k, minY + i, d.LEFT)) {
 				context.beginPath();
-				context.moveTo(step * (k + 1), step * (i + 1));
-				context.lineTo(step * (k + 1), step * (i + 2));
+				context.moveTo(step * (k + 1), step * (i + 5 + minY) - vertOffset);
+				context.lineTo(step * (k + 1), step * (i + 6 + minY) - vertOffset);
 				context.stroke();
 			}
 		}
 	}
 
 	if(runner) {
-		context.fillRect((1.25 + runner.getX()) * step, (1.25 + runner.getY()) * step, step / 2, step / 2);
+		var runnerY = (5.25 + runner.getY()) * step - vertOffset;
+		if(runnerY <= step) {
+			clearInterval(gameLoop);
+		}
+		context.fillRect((1.25 + runner.getX()) * step, (5.25 + runner.getY()) * step - vertOffset, step / 2, step / 2);
 	}
 }
