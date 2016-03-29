@@ -55,6 +55,8 @@ function SlowRunner(grid, startX, startY, stepLength) {
 		var interval;
 		var lastStep;
 
+		// Change to a series of timeouts so we can more easily
+		// implement an immediate reverse.
 		var intFunc = function() {
 			lastStep = Date.now();
 			if(direction) {
