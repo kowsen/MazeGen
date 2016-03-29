@@ -40,25 +40,25 @@ function init() {
 document.getElementById('maze').style.whiteSpace = 'pre';
 document.getElementById('maze').style.fontFamily = 'Courier New'
 
-document.getElementById('left').onclick = function() {
-	r.move(d.LEFT);
-	updateMaze();
-};
+// document.getElementById('left').onclick = function() {
+// 	r.move(d.LEFT);
+// 	updateMaze();
+// };
 
-document.getElementById('up').onclick = function() {
-	r.move(d.UP);
-	updateMaze()
-};
+// document.getElementById('up').onclick = function() {
+// 	r.move(d.UP);
+// 	updateMaze()
+// };
 
-document.getElementById('right').onclick = function() {
-	r.move(d.RIGHT);
-	updateMaze();
-};
+// document.getElementById('right').onclick = function() {
+// 	r.move(d.RIGHT);
+// 	updateMaze();
+// };
 
-document.getElementById('down').onclick = function() {
-	r.move(d.DOWN);
-	updateMaze();
-};
+// document.getElementById('down').onclick = function() {
+// 	r.move(d.DOWN);
+// 	updateMaze();
+// };
 
 document.onkeydown = function() {
 	if(event.keyCode === 37) {
@@ -75,12 +75,12 @@ document.onkeydown = function() {
 	updateMaze();
 }
 
-document.getElementById('width').value = WIDTH;
-document.getElementById('height').value = HEIGHT;
-document.getElementById('minDiff').value = MINDIFF;
-document.getElementById('maxDiff').value = MAXDIFF;
+// document.getElementById('width').value = WIDTH;
+// document.getElementById('height').value = HEIGHT;
+// document.getElementById('minDiff').value = MINDIFF;
+// document.getElementById('maxDiff').value = MAXDIFF;
 
-document.getElementById('generate').onclick = reGenerate;
+// document.getElementById('generate').onclick = reGenerate;
 
 function reGenerate() {
 	if(isLeft) {
@@ -94,10 +94,10 @@ function reGenerate() {
 		ENDX = WIDTH - 1;
 		ENDY = 0;
 	}
-	WIDTH = parseInt(document.getElementById('width').value);
-	HEIGHT = parseInt(document.getElementById('height').value);
-	MINDIFF = parseInt(document.getElementById('minDiff').value);
-	MAXDIFF = parseInt(document.getElementById('maxDiff').value);
+	// WIDTH = parseInt(document.getElementById('width').value);
+	// HEIGHT = parseInt(document.getElementById('height').value);
+	// MINDIFF = parseInt(document.getElementById('minDiff').value);
+	// MAXDIFF = parseInt(document.getElementById('maxDiff').value);
 
 	if(MAXDIFF < (WIDTH + HEIGHT - 1)) {
 		alert("MAXDIFF needs to be at least WIDTH + HEIGHT - 1");

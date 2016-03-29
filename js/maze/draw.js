@@ -32,7 +32,7 @@ function draw(grid, runner) {
 	return mazeString;
 }
 
-var step = 60;
+var step = 30;
 
 function drawToCanvas(grid, runner, canvas, vertOffset) {
     var context = canvas.getContext('2d');
