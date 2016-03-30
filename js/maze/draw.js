@@ -74,7 +74,7 @@ function drawToCanvas(grid, runner, canvas, vertOffset) {
 	if(runner) {
 		var runnerY = (5.25 + runner.getY()) * step - vertOffset;
 		if(runnerY <= step) {
-			clearInterval(gameLoop);
+			clearTimeout(gameLoop);
 		}
 		context.fillRect((1.25 + runner.getX()) * step, (5.25 + runner.getY()) * step - vertOffset, step / 2, step / 2);
 	}
