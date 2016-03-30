@@ -98,44 +98,12 @@ function SlowRunner(grid, startX, startY, stepLength) {
 
 	}).bind(this)();
 
-	// 1 - 24
-	// 2 - 13
-	// 3 - 24
-	// 4 - 13
-
 	// Make a single step in the direction. Returns false if
 	// we're blocked from moving, and true if we successfully move
 	var step = function(dir) {
 		if(grid.get(this.x, this.y, dir)) {
-
-			var foundHallway = false;
-
-			if(dir % 2 === 1) {
-				var isLeft = grid.get(this.x, this.y, d.LEFT);
-				var isRight = grid.get(this.x, this.y, d.RIGHT);
-				if(isLeft && !isRight) {
-					direction = d.RIGHT;
-					foundHallway = true;
-				} else if(!isLeft && isRight) {
-					direction = d.LEFT;
-					foundHallway = true;
-				}
-			} else {
-				var isUp = grid.get(this.x, this.y, d.UP);
-				var isDown = grid.get(this.x, this.y, d.DOWN);
-				if(isUp && !isDown) {
-					direction = d.DOWN;
-					foundHallway = true;
-				} else if(!isUp && isDown) {
-					direction = d.UP;
-					foundHallway = true;
-				}
-			}
-
-			if(!foundHallway) {
-				direction = false;
-				return false;
-			}
+			direction = false;
+			return false;
 		}
 		
 		switch(dir) {
@@ -154,35 +122,7 @@ function SlowRunner(grid, startX, startY, stepLength) {
 		}
 
 		if(grid.get(this.x, this.y, dir)) {
-			var foundHallway = false;
-
-			if(dir % 2 === 1) {
-				var isLeft = grid.get(this.x, this.y, d.LEFT);
-				var isRight = grid.get(this.x, this.y, d.RIGHT);
-				if(isLeft && !isRight) {
-					direction = d.RIGHT;
-					foundHallway = true;
-				} else if(!isLeft && isRight) {
-					direction = d.LEFT;
-					foundHallway = true;
-				}
-			} else {
-				var isUp = grid.get(this.x, this.y, d.UP);
-				var isDown = grid.get(this.x, this.y, d.DOWN);
-				if(isUp && !isDown) {
-					direction = d.DOWN;
-					foundHallway = true;
-				} else if(!isUp && isDown) {
-					direction = d.UP;
-					foundHallway = true;
-				}
-			}
-
-			if(!foundHallway) {
-				direction = false;
-			} else {
-				nextDir = false;
-			}
+			direction = false;
 		}
 
 		return true;
