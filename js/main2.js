@@ -38,13 +38,21 @@ function init() {
 	var lastScroll = 0;
 	var speedFactor = 2.5 * 20 / step;
 
+	var score = 0;
+	var scoreP = document.getElementById("score");
+
 	clearInterval(gameLoop);
 
 	gameLoop = setInterval(function() {
 		off++;
 		if((off - lastScroll) > (step * HEIGHT * speedFactor)) {
 			lastScroll += (step * HEIGHT * speedFactor);
+			speedFactor -= 0.05;
 			g.scrollDown();
+		}
+		if(off % 60 === 0) {
+			score++;
+			scoreP.innerHTML = "Score: " + score;
 		}
 		drawToCanvas(g, r, document.getElementById('maze'), off / speedFactor + step * 7);
 	}, 1000 / 60);
