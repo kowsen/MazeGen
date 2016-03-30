@@ -14,6 +14,7 @@ var g;
 var r;
 
 var isLeft = false;
+var gameLoop;
 
 function init() {
 	// Initialize a new grid
@@ -34,11 +35,29 @@ function init() {
 	// 	updateMaze();
 	// });
 
+	var lastScroll = 0;
+	var speedFactor = 2.5 * 20 / step;
+
+	clearInterval(gameLoop);
+
+	gameLoop = setInterval(function() {
+		off++;
+		if((off - lastScroll) > (step * HEIGHT * speedFactor)) {
+			lastScroll += (step * HEIGHT * speedFactor);
+			g.scrollDown();
+		}
+		drawToCanvas(g, r, document.getElementById('maze'), off / speedFactor + step * 7);
+	}, 1000 / 60);
+
+	var off = 0;
+
 	updateMaze();
 }
 
 document.getElementById('maze').style.whiteSpace = 'pre';
 document.getElementById('maze').style.fontFamily = 'Courier New'
+
+document.getElementById('reset').onclick = init;
 
 // document.getElementById('left').onclick = function() {
 // 	r.move(d.LEFT);
@@ -115,20 +134,6 @@ function updateMaze() {
 	//document.getElementById('maze').innerHTML = draw(g, r);
 	//drawToCanvas(g, r, document.getElementById('maze'));
 }
-
-var lastScroll = 0;
-var speedFactor = 2.4 * 20 / step;
-
-var gameLoop = setInterval(function() {
-	off++;
-	if((off - lastScroll) > (step * HEIGHT * speedFactor)) {
-		lastScroll += (step * HEIGHT * speedFactor);
-		g.scrollDown();
-	}
-	drawToCanvas(g, r, document.getElementById('maze'), off / speedFactor + step * 7);
-}, 1000 / 60);
-
-var off = 0;
 
 init();
 
