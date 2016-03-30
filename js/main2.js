@@ -86,6 +86,15 @@ document.getElementById('maze').style.fontFamily = 'Courier New'
 
 document.getElementById('reset').onclick = init;
 
+document.getElementById('enableMusic').onclick = function() {
+	document.getElementById('backMusic').play();
+}
+
+document.getElementById('disableMusic').onclick = function() {
+	document.getElementById('backMusic').pause();
+	document.getElementById('backMusic').currentTime = 0;
+}
+
 // document.getElementById('left').onclick = function() {
 // 	r.move(d.LEFT);
 // 	updateMaze();
